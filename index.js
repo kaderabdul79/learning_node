@@ -7,14 +7,21 @@ app.get('/', (req, res) => {
 })
 
 const users = [
-  {id:0,name: '0 abdul kader',Address : '0 dhaka'},
-  {id:1,name: '1 abdul kader',Address : '1 dhaka'},
-  {id:2,name: '2 abdul kader',Address : '2 dhaka'},
-  {id:3,name: '3 abdul kader',Address : '3 dhaka'},
-  {id:4,name: '4 abdul kader',Address : '4 dhaka'}
+  {id:0,name: 'abdul',Address : '0 dhaka'},
+  {id:1,name: 'kader',Address : '1 dhaka'},
+  {id:2,name: 'hasan',Address : '2 dhaka'},
+  {id:3,name: 'rim',Address : '3 dhaka'},
+  {id:4,name: 'kim',Address : '4 dhaka'}
 ]
 app.get('/users', (req,res) => {
-  res.send(users)
+  // res.send(users)
+  const search = req.query.search;
+  if(search){
+    const searchResult = users.filter(user => user.name.toLocaleLowerCase().includes(search));
+    res.send(searchResult);
+  }else{
+    res.send(users)
+  }
 })
 app.get('/user/:id', (req,res) => {
   // console.log(req.params.id)
