@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
+var cors = require('cors')
 const port = 4000
+app.use(cors())
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -23,6 +26,17 @@ app.get('/users', (req,res) => {
     res.send(users)
   }
 })
+
+app.post('/users',(req,res) => {
+  const newUser = req.body;
+  newUser.id = users.length;
+  users.push(newUser);
+  console.log('hitting from post',req.body);
+  // res.send('inside post');
+  //res.send(JSON.stringify(newUser))
+  res.json(newUser)
+})
+
 app.get('/user/:id', (req,res) => {
   // console.log(req.params.id)
   const id = req.params.id;
